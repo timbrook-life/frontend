@@ -1,0 +1,126 @@
+// Note this file is in transition between css -> scss
+
+/* Global */
+
+html {
+  font-family: 'Roboto Slab', 'Roboto', 'Lato', sans-serif;
+}
+
+body {
+  margin: 0px;
+}
+
+a,
+a:hover,
+a:visited,
+a:link
+{
+  text-decoration: none;
+  color: #526d7a;
+}
+
+/* Main grid responsive layout */
+
+.site {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 0.2fr 1fr 0.2fr;
+  grid-template-rows: 1fr 1fr 100px 50px 10px;
+  grid-template-areas: 
+    ". header ."
+    ". quote ."
+    ". social ."
+    ". footer ."
+    ". . ."
+  ;
+}
+
+@media only screen and (max-width: 600px) {
+  .site {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "header"
+      "quote"
+      "social"
+      "footer"
+    ;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .site {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 100px 1fr 1fr 100px;
+    grid-template-rows: 1fr 1fr 1fr 50px 10px;;
+    grid-template-areas: 
+      ". header . ."
+      ". header quote ."
+      ". header social ."
+      ". . footer ."
+      ". . . ."
+    ;
+  }
+}
+
+/* Content alignment and layout */
+
+.header {
+  grid-area: header;
+  text-align: center;
+  align-self: center;
+}
+
+.quote {
+  grid-area: quote;
+  text-align: center;
+  align-self: end;
+  padding: 0px;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.social {
+  grid-area: social;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.footer {
+  grid-area: footer; 
+  align-self: start;
+  color: #bbb;
+}
+
+/* Item styles */
+
+img.headshot {
+  max-width: 100%;
+  clip-path: circle(40% at center);
+  -webkit-clip-path: circle(40% at center);
+}
+
+.title {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 400;
+  color: #555;
+}
+
+.copyright {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.description {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 200;
+  color: #bbb;
+}
+
+.social a {
+  color: #526d7a;
+  padding: 10px;
+  font-size: 1.3em;
+}

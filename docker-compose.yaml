@@ -1,0 +1,15 @@
+version: '3.7'
+services: 
+  nginx:
+    build: ./conf
+    extra_hosts:
+      - "postgrest-api.production.svc.cluster.local:10.245.43.43"
+      - "auth-server-appshell.production.svc.cluster.local:10.245.71.91"
+  webpack-dev:
+    image: node:11.3.0
+    command: npm run container
+    working_dir: /root/project
+    volumes: 
+      - "./:/root/project"
+    ports:
+      - "8080:8080"
