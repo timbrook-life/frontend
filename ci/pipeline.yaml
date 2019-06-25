@@ -1,0 +1,16 @@
+---
+resources:
+  - name: source_push
+    type: git
+    icon: github-circle
+    source:
+      uri: "https://github.com/timbrook-life/frontend"
+      branch: master
+
+jobs:
+  - name: build_assets 
+    plan:
+      - get: source_push
+        trigger: true
+      - task: build-and-push
+        file: source_push/ci/task_build.yaml 
