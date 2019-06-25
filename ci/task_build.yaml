@@ -5,6 +5,9 @@ image_resource:
   type: docker-image
   source: {repository: busybox}
 
+inputs:
+  - source_push
+
 run:
   path: ls
   args: [-las]
