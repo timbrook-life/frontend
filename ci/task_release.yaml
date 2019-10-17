@@ -6,14 +6,15 @@ image_resource:
   source: { repository: node }
 
 inputs:
-  - name: frontend
-
-outputs:
   - name: frontend_built
-    path: frontend
+
+params:
+  ACCESS_KEY_ID: ((s3.id))
+  SECRET_ACCESS_KEY: ((s3.key))
 
 run:
-  dir: frontend
+  dir: frontend_built
   path: npm
   args:
-    - install
+    - run
+    - build

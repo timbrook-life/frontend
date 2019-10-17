@@ -1,6 +1,6 @@
 ---
 resources:
-  - name: source_push
+  - name: frontend
     type: git
     icon: github-circle
     source:
@@ -8,9 +8,11 @@ resources:
       branch: master
 
 jobs:
-  - name: build_assets 
+  - name: release
     plan:
-      - get: source_push
+      - get: frontend
         trigger: true
-      - task: build-and-push
-        file: source_push/ci/task_build.yaml 
+      - task: build
+        file: frontend/ci/task_build.yaml
+      - task: release
+        file: frontend/ci/task_release.yaml
