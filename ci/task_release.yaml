@@ -8,6 +8,10 @@ image_resource:
 inputs:
   - name: frontend_built
 
+outputs:
+  - name: frontend_index
+    path: frontend_built/_build/index.html
+
 params:
   ACCESS_KEY_ID: ((s3.id))
   SECRET_ACCESS_KEY: ((s3.key))

@@ -6,9 +6,17 @@ resources:
     source:
       uri: "https://github.com/timbrook-life/frontend"
       branch: master
+  - name: index
+    type: s3
+    source:
+      endpoint: sfo2.digitaloceanspaces.com
+      bucket: internal
+      file: frontend/index.html
+      access_key_id: ((s3.id))
+      secret_access_key: ((s3.key))
 
 jobs:
-  - name: release
+  - name: build
     plan:
       - get: frontend
         trigger: true
@@ -16,3 +24,18 @@ jobs:
         file: frontend/ci/task_build.yaml
       - task: release
         file: frontend/ci/task_release.yaml
+      - put: index
+        params:
+          file: frontend_index/index.html
+        inputs:
+          - frontend_index
+  - name: release
+    plan:
+      - get: index
+  # - name: nginx
+  #   plan:
+  #     - get: frontend
+  #       passed:
+  #         - release
+  #     - task: build
+  #       file: frontend/ci/task_nginx.yaml

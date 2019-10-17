@@ -34,5 +34,11 @@ module.exports = merge(common, {
         'cp ./dist/index.html ./conf/index.html',
       ]
     }),
+    new WebpackShellPlugin({
+      onBuildEnd: [
+        'pwd',
+        'cp ./dist/index.html ./_build/index.html',
+      ]
+    }),
   ]
 });
