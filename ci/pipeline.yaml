@@ -6,9 +6,15 @@ resources:
     source:
       uri: "https://github.com/timbrook-life/frontend"
       branch: master
+  - name: nginx-edge-proxy
+    type: docker-image
+    source:
+      username: ((docker.username))
+      password: ((docker.password))
+      repository: 7imbrook/life
 
 jobs:
-  - name: release
+  - name: Build Assets
     plan:
       - get: frontend
         trigger: true
@@ -16,3 +22,8 @@ jobs:
         file: frontend/ci/task_build.yaml
       - task: release
         file: frontend/ci/task_release.yaml
+      - put: nginx-edge-proxy
+        params:
+          build: ./frontend_dist/conf
+        inputs:
+          - frontend_dist

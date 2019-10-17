@@ -5,12 +5,16 @@ image_resource:
   type: docker-image
   source: { repository: node }
 
-inputs:
-  - name: frontend_built
-
 params:
   ACCESS_KEY_ID: ((s3.id))
   SECRET_ACCESS_KEY: ((s3.key))
+
+inputs:
+  - name: frontend_built
+
+outputs:
+  - name: frontend_dist
+    path: frontend_built
 
 run:
   dir: frontend_built
