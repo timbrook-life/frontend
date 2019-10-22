@@ -1,4 +1,5 @@
 import headshot from 'images/headshot.jpg';
+import headshot2 from 'images/headshot2.jpg';
 
 import React from 'react';
 
@@ -10,7 +11,7 @@ const Home = () => {
     return (
         <div className="site">
             <header className="header">
-                <img src={headshot} alt="Author Image" className="headshot" />
+                <img src={headshot2} alt="Author Image" className="headshot" />
                 <h1 className="title">Michael Timbrook</h1>
                 <h4 className="description">Software Engineer</h4>
             </header>

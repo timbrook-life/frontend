@@ -96,9 +96,10 @@ a:link
 /* Item styles */
 
 img.headshot {
-  max-width: 100%;
-  clip-path: circle(40% at center);
-  -webkit-clip-path: circle(40% at center);
+  // max-width: 100%;
+  max-width: 400px; 
+  // clip-path: circle(60% at center);
+  // -webkit-clip-path: circle(60% at center);
 }
 
 .title {
