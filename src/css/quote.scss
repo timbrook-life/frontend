@@ -1,5 +1,6 @@
 .quote {
-	font-family: 'Shadows Into Light', cursive;
+	// font-family: 'Shadows Into Light', cursive;
+	font-family: 'Rokkitt', serif;
 	color: #3f3f5a;
 }
 
@@ -9,7 +10,7 @@ blockquote {
 	max-width: 600px;
 	line-height: 1.4;
 	position: relative;
-	margin: 0;
+	margin: 1px;
 	padding: .5rem;
 }
 
@@ -23,14 +24,16 @@ blockquote:after {
     overflow: hidden;
 }
 
-blockquote:before {
-	content: '“';
-	left: -5rem;
-    top: -2rem;
-}
+@media only screen and (min-width: 1024px) {
+	blockquote:before {
+		content: '“';
+		left: -5rem;
+		top: -2rem;
+	}
 
-blockquote:after {
-	content: '”';
-	right: -5rem;
-    bottom: 1rem;
+	blockquote:after {
+		content: '”';
+		right: -5rem;
+		bottom: 1rem;
+	}
 }
