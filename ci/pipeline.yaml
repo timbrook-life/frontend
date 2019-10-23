@@ -46,6 +46,7 @@ jobs:
       - put: nginx-edge-proxy
         params:
           build: ./frontend_dist/conf
+        get_params: { skip_download: true }
         inputs:
           - frontend_dist
   - name: Binary Push
@@ -55,7 +56,6 @@ jobs:
         trigger: true
         passed:
           - Build Assets
-        get_params: { skip_download: true }
       - get: frontend
       - get: auth
       - put: helm-release
