@@ -8,8 +8,9 @@ healthEndpoint: "/health"
 ingress:
     enabled: true
     hosts:
-        - timbrook.tech 
+        - timbrook.tech
         - timbrook.dev
+        - timbrook.life
     paths:
         - /
 
@@ -21,29 +22,29 @@ build:
         - image: circleci/node
     working_directory: /home/circleci/project/frontend
     steps:
-      - checkout:
-          path: /home/circleci/project/ 
-      - setup_remote_docker
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - run:
-          name: Build Assets
-          command: |
-            npm run build
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-      - run:
-          name: Build Nginx Image
-          command: ../scripts/build_release.sh 7imbrook/life ./conf frontend
-      - persist_to_workspace:
-          root: ~/logs
-          paths:
-            - frontend_push.log
+        - checkout:
+              path: /home/circleci/project/
+        - setup_remote_docker
+        - restore_cache:
+              name: Restore Yarn Package Cache
+              keys:
+                  - yarn-packages-{{ checksum "yarn.lock" }}
+        - run:
+              name: Install Dependencies
+              command: yarn install --frozen-lockfile
+        - run:
+              name: Build Assets
+              command: |
+                  npm run build
+        - save_cache:
+              name: Save Yarn Package Cache
+              key: yarn-packages-{{ checksum "yarn.lock" }}
+              paths:
+                  - ~/.cache/yarn
+        - run:
+              name: Build Nginx Image
+              command: ../scripts/build_release.sh 7imbrook/life ./conf frontend
+        - persist_to_workspace:
+              root: ~/logs
+              paths:
+                  - frontend_push.log
