@@ -53,6 +53,8 @@ jobs:
     serial: true
     plan:
       - get: nginx-edge-proxy
+        params:
+          skip_download: true
         trigger: true
         passed:
           - Build Assets
