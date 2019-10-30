@@ -65,7 +65,8 @@ jobs:
           release: personal-site-frontend
           kubeconfig_path: auth/config.yaml
           chart: personal/appshell
-          version: 0.2.0
+          version: 1.0.17
+          namespace: production
           values: frontend/values.yaml
           show_diff: true
           override_values:
