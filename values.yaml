@@ -13,3 +13,11 @@ ingress:
         - timbrook.life
     paths:
         - /
+
+resources:
+  limits:
+   cpu: 80m
+   memory: 128Mi
+  requests:
+   cpu: 20m
+   memory: 56Mi
