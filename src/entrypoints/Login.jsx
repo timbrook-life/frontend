@@ -1,58 +1,18 @@
 import "css/not_found.scss";
 import "css/login.scss";
 
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
-const KEY = "login";
-
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      key_buf: [],
-      waiting: true,
-      redirect: false
-    };
-    this.keyPress = this.keyPress.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.loginCallback = this.loginCallback.bind(this);
+export default function LoginPage(props) {
+  const [redirect, setRedirect] = useState(false);
+  if (redirect) {
+    const { state } = props.location;
+    return <Redirect to={state.from.pathname || "/admin"} push />;
   }
 
-  componentWillMount() {
-    window.addEventListener("keyup", this.keyPress);
-  }
-
-  keyPress(event) {
-    if (!this.state.waiting) {
-      window.removeEventListener("keyup", this.keyPress, false);
-      return;
-    }
-    const buf = this.state.key_buf;
-    buf.push(event.key);
-    if (buf.length > KEY.length) {
-      buf.shift();
-    }
-    if (buf.join("") === KEY) {
-      this.setState({
-        waiting: false
-      });
-    }
-    this.setState({
-      key_buf: buf
-    });
-  }
-
-  renderHide() {
-    return (
-      <div className="not_found">
-        <div className="not_found_body">Not Found :(</div>
-      </div>
-    );
-  }
-
-  handleSubmit(token) {
+  const validateLogin = ({ tokenId }) => {
     fetch("/api/v1/login", {
       method: "POST",
       headers: {
@@ -60,48 +20,30 @@ class Login extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        token
+        token: tokenId
       })
     })
       .then(res => res.json())
       .then(res => {
-        localStorage.setItem("token", res.token);
-        this.setState({
-          redirect: true
-        });
+        console.log(res);
+      })
+      .catch(() => {
+        console.log("yup no");
+        setRedirect(true);
       });
-  }
-
-  loginCallback({ tokenId, profileObj }) {
-    this.handleSubmit(tokenId);
-  }
-
-  renderLoginForm() {
-    return (
-      <div className="login-form">
-        <div className="login-box">
-          <GoogleLogin
-            clientId={CLIENT_ID}
-            buttonText="Think before you type. This will be logged"
-            onSuccess={this.loginCallback}
-            onFailure={this.loginCallback}
-            cookiePolicy={"single_host_origin"}
-          />
-        </div>
+  };
+  return (
+    <div className="login-form">
+      <div className="login-title">You Probably can't login</div>
+      <div className="login-box">
+        <GoogleLogin
+          clientId={CLIENT_ID}
+          buttonText="But that's fine, you can try anyway"
+          onSuccess={validateLogin}
+          onFailure={validateLogin}
+          cookiePolicy={"single_host_origin"}
+        />
       </div>
-    );
-  }
-
-  render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.props.location.state.from} push />;
-    }
-    return (
-      <div>
-        {this.state.waiting ? this.renderHide() : this.renderLoginForm()}
-      </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default Login;
