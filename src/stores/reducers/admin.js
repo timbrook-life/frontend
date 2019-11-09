@@ -10,6 +10,10 @@ export default function admin(
         loggedIn: true,
         ...action.payload
       };
+    case "LOGOUT":
+      return {
+        loggedIn: false
+      };
   }
   return state;
 }
