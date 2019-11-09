@@ -1,17 +1,19 @@
 import "css/not_found.scss";
 import "css/login.scss";
 
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React from "react";
 import { GoogleLogin } from "react-google-login";
+import { Provider } from "react-redux";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-export default function LoginPage(props) {
-  const [redirect, setRedirect] = useState(false);
-  if (redirect) {
-    const { state } = props.location;
-    return <Redirect to={state.from.pathname || "/admin"} push />;
+import store from "stores/store";
+
+function LoginPage(props) {
+  console.log(props);
+  if (props.loggedIn) {
+    return <Redirect to={"/admin"} />;
   }
-
   const validateLogin = ({ tokenId }) => {
     fetch("/api/v1/login", {
       method: "POST",
@@ -24,13 +26,7 @@ export default function LoginPage(props) {
       })
     })
       .then(res => res.json())
-      .then(res => {
-        console.log(res);
-      })
-      .catch(() => {
-        console.log("yup no");
-        setRedirect(true);
-      });
+      .then(props.login);
   };
   return (
     <div className="login-form">
@@ -47,3 +43,25 @@ export default function LoginPage(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    loggedIn: state.admin.loggedIn
+  };
+};
+
+const mapDispatchToProps = {
+  login(payload) {
+    return dispatch => {
+      dispatch({
+        type: "LOGIN",
+        payload
+      });
+    };
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);

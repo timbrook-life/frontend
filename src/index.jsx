@@ -4,9 +4,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import asyncComponent from "util/asyncComponent";
-import { AdminRoute } from "util/protectedRoute";
+import AdminRoute from "util/protectedRoute";
 import Home from "entrypoints/Home";
 import NotFound from "entrypoints/404";
+import store from "stores/store";
+import { Provider } from "react-redux";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -21,13 +23,15 @@ const AsyncLogin = asyncComponent(() => {
 });
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <AdminRoute path="/admin" component={AsyncAdmin} />
-      <Route path="/login" component={AsyncLogin} />
-      <Route component={NotFound} />
-    </Switch>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <AdminRoute path="/admin" component={AsyncAdmin} />
+        <Route path="/login" component={AsyncLogin} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  </Provider>,
   root
 );
