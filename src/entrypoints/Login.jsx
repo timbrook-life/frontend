@@ -1,9 +1,9 @@
 import "css/not_found.scss";
 import "css/login.scss";
 
+import * as jwtdecode from "jwt-decode";
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import { Provider } from "react-redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -53,9 +53,16 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
   login(payload) {
     return dispatch => {
+      const key_info = jwtdecode(payload.token);
       dispatch({
         type: "LOGIN",
-        payload
+        payload: {
+          ...payload,
+          ...key_info,
+          // Expiration is checking in ms
+          iat: key_info.exp * 1000,
+          exp: key_info.exp * 1000
+        }
       });
     };
   }

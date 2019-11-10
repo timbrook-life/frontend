@@ -25,7 +25,7 @@ const AsyncLogin = asyncComponent(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<Home />} persistor={persistor}>
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
