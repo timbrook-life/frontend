@@ -60,8 +60,10 @@ class Podcast extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const { podId } = ownProps.match.params;
   return {
-    podcast: state.podcasts[ownProps.podId]
+    podcast: state.podcasts[podId],
+    podId
   };
 };
 
