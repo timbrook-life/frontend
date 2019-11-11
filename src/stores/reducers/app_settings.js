@@ -1,8 +1,9 @@
-import amazonLogo from "images/amazon.svg";
+import plantLogo from "images/plant.svg";
 import podCover from "images/podcover.png";
 
 const APP_COVER_MAP = {
-  podcasts: podCover
+  podcasts: podCover,
+  plants: plantLogo
 };
 
 const APP_LOCATION = {
