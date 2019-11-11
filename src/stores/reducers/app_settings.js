@@ -10,7 +10,12 @@ const APP_LOCATION = {
   plants: "/admin/plants/"
 };
 
-export default function app_settings(state = {}, action) {
+export default function app_settings(
+  state = {
+    settingsPageOpen: false
+  },
+  action
+) {
   switch (action.type) {
     case "RESOLVE_CONFIGURED_APP":
       return {
@@ -22,6 +27,16 @@ export default function app_settings(state = {}, action) {
             link: APP_LOCATION[app] || config.app_link || "/admin"
           };
         })
+      };
+    case "OPEN_SETTINGS":
+      return {
+        ...state,
+        settingsPageOpen: true
+      };
+    case "CLOSE_SETTINGS":
+      return {
+        ...state,
+        settingsPageOpen: false
       };
   }
   return state;
