@@ -17,7 +17,7 @@ const Main = props => {
   const items = props.apps.map((app, i) => {
     return (
       <div className="admin-block" key={i}>
-        <Link to={app.link} en>
+        <Link to={app.link}>
           <div style={style(app.cover)}>{app.cover ? undefined : app.name}</div>
         </Link>
       </div>

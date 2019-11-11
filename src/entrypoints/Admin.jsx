@@ -8,6 +8,7 @@ import Main from "components/admin/Main";
 import NotFound from "entrypoints/404";
 import Podcast from "../components/admin/Podcast";
 import Amazon from "../components/admin/Amazon";
+import Plants from "../components/plants/Plants";
 
 const Admin = ({ match }) => {
   return (
@@ -18,6 +19,7 @@ const Admin = ({ match }) => {
           <Route exact path={`${match.path}/`} component={Main} />
           <Route exact path={`${match.path}/pod/:podId`} component={Podcast} />
           <Route exact path={`${match.path}/amazon/`} component={Amazon} />
+          <Route exact path={`${match.path}/plants/`} component={Plants} />
           <Route component={NotFound} />
         </Switch>
       </div>

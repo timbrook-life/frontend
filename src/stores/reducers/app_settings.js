@@ -15,7 +15,6 @@ export default function app_settings(state = {}, action) {
       return {
         ...state,
         apps: action.body.map(({ app, config }) => {
-          console.log(config);
           return {
             name: app,
             cover: APP_COVER_MAP[app],

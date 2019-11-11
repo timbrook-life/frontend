@@ -10,9 +10,15 @@ import { Redirect } from "react-router-dom";
 import store from "stores/store";
 
 function LoginPage(props) {
-  console.log(props);
+  let pathname = "/admin";
+  if (props.location.state !== undefined) {
+    pathname = props.location.state.from.pathname;
+  }
+  if (pathname === "/login") {
+    pathname = "/admin";
+  }
   if (props.loggedIn) {
-    return <Redirect to={"/admin"} />;
+    return <Redirect to={pathname} />;
   }
   const validateLogin = ({ tokenId }) => {
     fetch("/api/v1/login", {
